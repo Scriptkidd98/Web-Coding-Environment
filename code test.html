@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Code Test</title>
+	<link href="index.css" rel="stylesheet">
+	<link href="bootstrap.css" rel="stylesheet">
+	<link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/et-line.css" rel="stylesheet">
+    <link href="assets/css/ionicons.min.css" rel="stylesheet">
+    <script src="jquery-3.4.1.js" type="text/javascript"></script>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <script src="bootstrap.min.js" type="text/javascript"></script>
+</head>
+<header>
+	
+	<div class="logo">
+		CodeTest
+	</div>	
+
+	<div class="headerButton">
+		<div class="buttons active" id="html"> HTML </div>
+		<div class="buttons" id="css"> CSS </div>
+		<div class="buttons" id="javascript"> JavaScript </div>
+		<div class="buttons" id="output"> Output </div>
+	</div>	
+
+	<div class="login">
+		<div class="loginbutton" id="login"> Sign In </div>	
+	</div>	
+
+
+</header>
+<body>
+	
+	<div class="bodyContainer" id="bodyContainer">
+
+		<textarea id="htmlPanel" class="panel"> <p id="paragraph">Hello World!</p></textarea>
+		<textarea id="cssPanel" class="panel hidden"> p {color: red;}</textarea>
+		<textarea id="javascriptPanel" class="panel hidden"> document.getElementById("paragraph").innerHTML = "Hello Isaac";</textarea>
+
+		<iframe id="outputPanel" class="panel"></iframe>
+
+	</div>
+
+	<p id="text"> </p>
+
+	<div id="canvas">
+	</div>
+	<div class="canvas">
+	</div>
+	
+
+	<script type="text/javascript">
+
+		function updateOutput() {
+			$("iframe").contents().find("html").html("<html><head><style>" + $("#cssPanel").val() + "</style></head><body>" + $("#htmlPanel").val() + "</body></html>");
+			document.getElementById("outputPanel").contentWindow.eval($("#javascriptPanel").val());
+		}
+
+		$(".panel").height($(window).height() - $("header").height() - 20);
+		$(".panel").width(($(window).width() / 2) - 5);
+
+		updateOutput();
+
+		$("textarea").on("change keyup paste", function(){
+			updateOutput();
+		});
+		
+		$(".buttons").click(function() {
+			var panelid = $(this).attr("id") + "Panel";
+			$("#" + panelid).toggleClass("hidden");
+			var numofactivepanels = 4 - $(".hidden").length;
+			$(".panel").width(($(window).width() / numofactivepanels) - 5);
+		})
+
+		/* if(typeof jQuery == "undefined"){
+			alert('jQuery is not installed correctly');
+		} else {
+			alert('jQuery is installed correctly');
+		} */
+
+		/*
+		$(".buttons").hover(function() {
+			$(this).css("background-color","grey");
+		}, function() {
+			$(this).css("background-color","#EEEEEE")
+		})
+		*/
+		/*
+		$("#fade").click(function() {
+			$("p").fadeOut("slow");
+		})
+
+		$("#sant").click(function() {
+			alert("Div called 'sant was clicked");
+		});
+
+		$("img").click(function() {
+			alert($(this).attr("src"));
+			$("img").attr("src","issue1.jpg");
+		});
+
+		var myVar = setInterval(myTimer, 20);
+		var num = 0;
+		function myTimer() {
+    		document.getElementById("text").innerHTML = num + " " + "satisfied clients";
+    		
+    		if(num < 100){
+    			num++;
+			} else {
+				clearInterval(myVar);
+			}
+		}
+		*/
+		
+		/* using jQuery or javascript we can change the inner html of any tag, with the <html> tag we can create a whole web page by allowing the user
+		drag and drop, or type their code and we insert it into the inner html. this can work as a training website where you learn like with Scratch.
+		see below as we add an image to the inner html of the canvas div */
+
+		/*
+		$(".canvas").html('<img src="lemon.jpeg" alt="an image" style="height:200px;width:200px"> <p> The above image was added as a inner html using jQuery </p>');
+		document.getElementById("canvas").innerHTML = '<img src="lemon.jpeg" alt="an image" style="height:200px;width:200px"> <p> The above image was added as a inner html using JS </p>';
+		*/
+	</script>
+</body>
+</html>
+
+
